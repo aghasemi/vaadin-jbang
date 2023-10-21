@@ -7,7 +7,6 @@
 //DEPS org.eclipse.jetty:jetty-webapp:11.0.17
 //DEPS org.eclipse.jetty.websocket:websocket-jakarta-server:11.0.17
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,8 +19,6 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.theme.Theme;
-
-
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -36,12 +33,11 @@ import com.vaadin.flow.router.RouteAlias;
 @Route(value = "")
 public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurator {
 
-    private static final String PUBLIC_FOLDER="public";
-
+    private static final String PUBLIC_FOLDER = "public";
 
     public static void main(String[] args) throws Exception {
         // We need a dummy, empty POM file to trick Vaadin into working
-        var pomPath = Path.of("./pom.xml" );
+        var pomPath = Path.of("./pom.xml");
         Files.writeString(pomPath, "<project></project>");
 
         final var context = createWebAppContext();
@@ -49,7 +45,6 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
         server.setHandler(context);
         server.start();
         server.join();
-
 
     }
 
@@ -90,4 +85,3 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
     }
 
 }
-
