@@ -41,13 +41,15 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
 
     public static void main(String[] args) throws Exception {
         // We need a dummy, empty POM file to trick Vaadin into working
-        Files.writeString(Path.of("./pom.xml" ), "<project></project>");
+        var pomPath = Path.of("./pom.xml" );
+        Files.writeString(pomPath, "<project></project>");
 
         final var context = createWebAppContext();
         Server server = new Server(9090);
         server.setHandler(context);
         server.start();
         server.join();
+
 
     }
 
