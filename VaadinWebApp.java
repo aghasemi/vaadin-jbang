@@ -9,6 +9,8 @@
 
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.util.resource.Resource;
@@ -46,6 +48,7 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
     // copied from: https://github.com/mvysny/vaadin-boot/tree/main/vaadin-boot
     private static WebAppContext createWebAppContext() throws IOException {
         final WebAppContext context = new WebAppContext();
+        Files.createDirectories(Paths.get("./public"));
         context.setBaseResource(Resource.newResource("./"));
         context.addServlet(VaadinServlet.class, "/*");
         // this will properly scan the classpath for all @WebListeners,
