@@ -10,6 +10,7 @@
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.eclipse.jetty.server.Server;
@@ -35,9 +36,14 @@ import com.vaadin.flow.router.RouteAlias;
 @Route(value = "")
 public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurator {
 
+    private static final String PUBLIC_FOLDER="public";
+
 
     public static void main(String[] args) throws Exception {
-        final WebAppContext context = createWebAppContext();
+        // We need a dummy, empty POM file to trick Vaadin into working
+        Files.writeString(Path.of("./pom.xml" ), "<project></project>");
+
+        final var context = createWebAppContext();
         Server server = new Server(9090);
         server.setHandler(context);
         server.start();
@@ -48,8 +54,8 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
     // copied from: https://github.com/mvysny/vaadin-boot/tree/main/vaadin-boot
     private static WebAppContext createWebAppContext() throws IOException {
         final WebAppContext context = new WebAppContext();
-        Files.createDirectories(Paths.get("./public"));
-        context.setBaseResource(Resource.newResource("./"));
+        Files.createDirectories(Paths.get(PUBLIC_FOLDER));
+        context.setBaseResource(Resource.newResource(PUBLIC_FOLDER));
         context.addServlet(VaadinServlet.class, "/*");
         // this will properly scan the classpath for all @WebListeners,
         // including the most important
