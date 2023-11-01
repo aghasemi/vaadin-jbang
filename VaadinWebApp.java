@@ -58,21 +58,18 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
         // including the most important
         // com.vaadin.flow.server.startup.ServletContextListeners.
         // See also https://mvysny.github.io/vaadin-lookup-vs-instantiator/
-        context.setAttribute(
-                "org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
-                ".*\\.jar|.*/classes/.*");
+        context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern", ".*\\.jar|.*/classes/.*");
         context.setConfigurationDiscovered(true);
         context.getServletContext().setExtendedListenerTypes(true);
 
         return context;
     }
 
-    private TextField name;
-    private Button sayHello;
+    
 
     public VaadinWebApp() {
-        name = new TextField("Your name");
-        sayHello = new Button("Say hello");
+        var name = new TextField("Your name");
+        var sayHello = new Button("Say hello");
         sayHello.addClickListener(e -> {
             Notification.show("Hello " + name.getValue());
         });
