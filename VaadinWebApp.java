@@ -41,7 +41,7 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
         Files.writeString(pomPath, "<project></project>");
 
         final var context = createWebAppContext();
-        Server server = new Server(9090);
+        var server = new Server(9090);
         server.setHandler(context);
         server.start();
         server.join();
@@ -50,7 +50,7 @@ public class VaadinWebApp extends HorizontalLayout implements AppShellConfigurat
 
     // copied from: https://github.com/mvysny/vaadin-boot/tree/main/vaadin-boot
     private static WebAppContext createWebAppContext() throws IOException {
-        final WebAppContext context = new WebAppContext();
+        final var context = new WebAppContext();
         Files.createDirectories(Paths.get(PUBLIC_FOLDER));
         context.setBaseResource(Resource.newResource(PUBLIC_FOLDER));
         context.addServlet(VaadinServlet.class, "/*");
